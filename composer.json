@@ -1,0 +1,15 @@
+{
+    "name": "rafaelwendel/phpsupabase",
+    "description" : "Php client to use Supabase",
+    "type": "library",
+    "homepase": "https://github.com/rafaelwendel/phpsupabase",
+    "authors": [
+        {
+            "name": "Rafael Wendel Pinheiro",
+            "email": "rafaelwendel@hotmail.com"
+        }
+    ],
+    "require" : {
+        "guzzlehttp/guzzle": "^7.0"
+    }
+}
