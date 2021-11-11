@@ -5,14 +5,22 @@ namespace PHPSupabase;
 class Service {
     private $apiKey;
     private $uriBase;
+    private $httpClient;
+
+    private $headers = [
+        'Content-Type' => 'application/json'
+    ];
 
     public function __construct(string $apiKey, string $uriBase)
     {
         $this->apiKey = $apiKey;
         $this->uriBase = $this->formatUriBase($uriBase);
+
+        $this->httpClient = new \GuzzleHttp\Client();
+        $this->headers['apikey'] = $this->apiKey;
     }
 
-    private function formatUriBase(string $uriBase)
+    private function formatUriBase(string $uriBase) : string
     {
         return (substr($uriBase , -1) == '/')
             ? $uriBase
@@ -24,8 +32,28 @@ class Service {
         return $this->apiKey;
     }
 
-    public function getUriBase($endPoint = '')
+    public function getUriBase(string $endPoint = '') : string
     {
         return $this->uriBase . $endPoint;
+    }
+
+    public function getHttpClient() : \GuzzleHttp\Client
+    {
+        return $this->httpClient;
+    }
+
+    public function setHeader(string $header, string $value) : void
+    {
+        $this->header[$header] = $value;
+    }
+
+    public function getHeaders() : array
+    {
+        return $this->headers;
+    }
+
+    public function createAuth()
+    {
+        return new Auth($this);
     }
 }
