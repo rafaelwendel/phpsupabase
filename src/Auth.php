@@ -38,19 +38,15 @@ class Auth {
         return $this->error;
     }
 
-    private function defaultPostCallEmailAndPassword(string $endPoint, string $email, string $password)
+    private function defaultPostCallUserManagement(string $endPoint, array $fields)
     {
         $uri = $this->service->getUriBase($endPoint);
-        $body = [
-            'email' => $email,
-            'password' => $password
-        ];
         try{
             $response = $this->service->getHttpClient()->post(
                 $uri,
                 [
                     'headers' => $this->service->getHeaders(),
-                    'body'    => json_encode($body)
+                    'body'    => json_encode($fields)
                 ]
             );
             $this->data = json_decode($response->getBody());
@@ -65,11 +61,52 @@ class Auth {
 
     public function createUserWithEmailAndPassword(string $email, string $password)
     {
-        $this->defaultPostCallEmailAndPassword('signup', $email, $password);
+        $fields = [
+            'email' => $email,
+            'password' => $password
+        ];
+        $this->defaultPostCallUserManagement('signup', $fields);
     }
 
     public function signInWithEmailAndPassword(string $email, string $password)
     {
-        $this->defaultPostCallEmailAndPassword('token?grant_type=password', $email, $password);
+        $fields = [
+            'email' => $email,
+            'password' => $password
+        ];
+        $this->defaultPostCallUserManagement('token?grant_type=password', $fields);
+    }
+
+    public function signInWithMagicLink(string $email)
+    {
+        $fields = [
+            'email' => $email
+        ];
+        $this->defaultPostCallUserManagement('magiclink', $fields);
+    }
+
+    public function createUserWithPhoneAndPassword(string $phone, string $password)
+    {
+        $fields = [
+            'phone' => $phone,
+            'password' => $password
+        ];
+        $this->defaultPostCallUserManagement('signup', $fields);
+    }
+
+    public function signInWithSMSOTP(string $phone)
+    {
+        $fields = [
+            'phone' => $phone
+        ];
+        $this->defaultPostCallUserManagement('otp', $fields);
+    }
+
+    public function recoverPassword(string $email)
+    {
+        $fields = [
+            'email' => $email
+        ];
+        $this->defaultPostCallUserManagement('recover', $fields);
     }
 }
