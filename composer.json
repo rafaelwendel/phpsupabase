@@ -9,7 +9,13 @@
             "email": "rafaelwendel@hotmail.com"
         }
     ],
-    "require" : {
+    "require": {
         "guzzlehttp/guzzle": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "PHPSupabase\\": "src/",
+            "Vendor\\Namespace\\" : ""
+        }
     }
 }
