@@ -82,6 +82,17 @@ class Auth {
         $this->defaultPostCallUserManagement('recover', $fields);
     }
 
+    
+    public function logout(string $bearerUserToken)
+    {
+        $uri = $this->service->getUriBase('logout');
+        $this->service->setHeader('Authorization', 'Bearer ' . $bearerUserToken);
+        $options = [
+            'headers' => $this->service->getHeaders()
+        ];
+        return $this->service->executeHttpRequest('POST', $uri, $options);
+    }
+
     public function getUser(string $bearerUserToken)
     {
         $uri = $this->service->getUriBase('user');
@@ -99,4 +110,5 @@ class Auth {
             ? true
             : false;
     }
+
 }
