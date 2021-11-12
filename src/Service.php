@@ -63,6 +63,11 @@ class Service {
         return new Auth($this);
     }
 
+    public function initializeTable(string $tableName)
+    {
+        return new Table($this, $tableName);
+    }
+
     public function formatRequestException(\GuzzleHttp\Exception\RequestException $e) : void
     {
         if($e->hasResponse()){
