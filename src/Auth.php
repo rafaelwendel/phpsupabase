@@ -91,4 +91,12 @@ class Auth {
         ];
         return $this->service->executeHttpRequest('GET', $uri, $options);
     }
+
+    public function isAuthenticated(string $bearerUserToken) : bool
+    {
+        $data = $this->getUser($bearerUserToken);
+        return $data->aud == 'authenticated'
+            ? true
+            : false;
+    }
 }
