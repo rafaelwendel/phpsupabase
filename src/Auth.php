@@ -119,4 +119,28 @@ class Auth {
             : false;
     }
 
+    public function updateUser(string $bearerUserToken, string $email = null, string $password = null, array $data = [])
+    {
+        $uri = $this->service->getUriBase('user');
+        $this->service->setHeader('Authorization', 'Bearer ' . $bearerUserToken);
+
+        $fields = [];
+        if(!is_null($email)){
+            $fields['email'] = $email;
+        }
+        if(!is_null($password)){
+            $fields['password'] = $password;
+        }
+        if(is_array($data) && count($data) > 0){
+            $fields['data'] = $data;
+        }
+
+        $options = [
+            'headers' => $this->service->getHeaders(),
+            'body' => json_encode($fields)
+        ];
+
+        return $this->service->executeHttpRequest('PUT', $uri, $options);
+    }
+
 }
