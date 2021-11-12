@@ -49,6 +49,14 @@ class Auth {
         $this->defaultPostCallUserManagement('token?grant_type=password', $fields);
     }
 
+    public function signInWithRefreshToken(string $refreshToken)
+    {
+        $fields = [
+            'refresh_token' => $refreshToken
+        ];
+        $this->defaultPostCallUserManagement('token?grant_type=refresh_token', $fields);
+    }
+
     public function signInWithMagicLink(string $email)
     {
         $fields = [
