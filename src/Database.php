@@ -35,6 +35,17 @@ class Database {
         $this->result = $this->service->executeHttpRequest('GET', $uri, $options);
     }
 
+    public function insert(array $data)
+    {
+        $uri = $this->service->getUriBase($this->tableName);
+        $this->service->setHeader('Prefer', 'return=representation');
+        $options = [
+            'headers' => $this->service->getHeaders(),
+            'body' => json_encode($data)
+        ];
+        return $this->service->executeHttpRequest('POST', $uri, $options);
+    }
+
     public function fetchAll()
     {
         $this->defaultGetCall('select=*');
