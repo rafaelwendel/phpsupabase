@@ -81,12 +81,12 @@ class Service {
     public function executeHttpRequest(string $method, string $uri, array $options)
     {
         try{
-            $response = $this->service->getHttpClient()->request(
+            $response = $this->httpClient->request(
                 $method,
                 $uri,
                 $options
             );
-            $this->data = json_decode($response->getBody());
+            return json_decode($response->getBody());
         } catch(\GuzzleHttp\Exception\RequestException $e){
             $this->formatRequestException($e);
             throw $e;
