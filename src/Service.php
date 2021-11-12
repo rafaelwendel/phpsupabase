@@ -6,6 +6,7 @@ class Service {
     private $apiKey;
     private $uriBase;
     private $httpClient;
+    private $error;
 
     private $headers = [
         'Content-Type' => 'application/json'
@@ -52,8 +53,46 @@ class Service {
         return $this->headers;
     }
 
+    public function getError() : string
+    {
+        return $this->error;
+    }
+
     public function createAuth()
     {
         return new Auth($this);
+    }
+
+    public function formatRequestException(\GuzzleHttp\Exception\RequestException $e) : void
+    {
+        if($e->hasResponse()){
+            $res = json_decode($e->getResponse()->getBody());
+            $seacrhItems = ['msg', 'message', 'error_description'];
+
+            foreach($seacrhItems as $item){
+                if(isset($res->$item)){
+                    $this->error = $res->$item;
+                    break;
+                }
+            }
+        }
+    }
+
+    public function executeHttpRequest(string $method, string $uri, array $options)
+    {
+        try{
+            $response = $this->service->getHttpClient()->request(
+                $method,
+                $uri,
+                $options
+            );
+            $this->data = json_decode($response->getBody());
+        } catch(\GuzzleHttp\Exception\RequestException $e){
+            $this->formatRequestException($e);
+            throw $e;
+        } catch(\GuzzleHttp\Exception\ConnectException $e){
+            $this->error = $e->getMessage();
+            throw $e;
+        }
     }
 }

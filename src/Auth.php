@@ -5,7 +5,6 @@ namespace PHPSupabase;
 class Auth {
     private $service;
     private $data;
-    private $error;
 
     public function __construct(Service $service)
     {
@@ -17,46 +16,19 @@ class Auth {
         return $this->data;
     }
 
-    private function formatRequestException(\GuzzleHttp\Exception\RequestException $e) : void
-    {
-        if($e->hasResponse()){
-            $res = json_decode($e->getResponse()->getBody());
-            $seacrhItems = ['msg', 'message', 'error_description'];
-
-            foreach($seacrhItems as $item){
-                if(isset($res->$item)){
-                    $this->error = $res->$item;
-                    break;
-                }
-            }
-            //die(print_r($msg));
-        }
-    }
-
     public function getError() : string
     {
-        return $this->error;
+        return $this->service->getError();
     }
 
     private function defaultPostCallUserManagement(string $endPoint, array $fields)
     {
         $uri = $this->service->getUriBase($endPoint);
-        try{
-            $response = $this->service->getHttpClient()->post(
-                $uri,
-                [
-                    'headers' => $this->service->getHeaders(),
-                    'body'    => json_encode($fields)
-                ]
-            );
-            $this->data = json_decode($response->getBody());
-        } catch(\GuzzleHttp\Exception\RequestException $e){
-            $this->formatRequestException($e);
-            throw $e;
-        } catch(\GuzzleHttp\Exception\ConnectException $e){
-            $this->error = $e->getMessage();
-            throw $e;
-        }
+        $options = [
+            'headers' => $this->service->getHeaders(),
+            'body'    => json_encode($fields)
+        ];
+        $this->service->executeHttpRequest('POST', $uri, $options);
     }
 
     public function createUserWithEmailAndPassword(string $email, string $password)
