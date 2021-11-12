@@ -63,9 +63,9 @@ class Service {
         return new Auth($this);
     }
 
-    public function initializeTable(string $tableName)
+    public function initializeDatabase(string $tableName)
     {
-        return new Table($this, $tableName);
+        return new Database($this, $tableName);
     }
 
     public function formatRequestException(\GuzzleHttp\Exception\RequestException $e) : void
