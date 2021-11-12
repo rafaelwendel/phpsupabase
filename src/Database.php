@@ -5,13 +5,15 @@ namespace PHPSupabase;
 class Database {
     private $service;
     private $tableName;
+    private $primaryKey;
     private $bearerToken;
     private $result;
 
-    public function __construct(Service $service, string $tableName)
+    public function __construct(Service $service, string $tableName, $primaryKey)
     {
         $this->service = $service;
         $this->tableName = $tableName;
+        $this->primaryKey = $primaryKey;
     }
 
     public function getResult()
@@ -26,7 +28,7 @@ class Database {
             : [];
     }
 
-    private function defaultGetCall(string $queryString)
+    private function executeQuery(string $queryString)
     {
         $uri = $this->service->getUriBase($this->tableName . '?' . $queryString);
         $options = [
@@ -35,32 +37,44 @@ class Database {
         $this->result = $this->service->executeHttpRequest('GET', $uri, $options);
     }
 
-    public function insert(array $data)
+    public function executeDml(string $method, array $data, string $queryString = null)
     {
-        $uri = $this->service->getUriBase($this->tableName);
+        $endPoint = ($queryString == null) ? $this->tableName : $this->tableName . '?' . $queryString; 
+        $uri = $this->service->getUriBase($endPoint);
+        
         $this->service->setHeader('Prefer', 'return=representation');
         $options = [
             'headers' => $this->service->getHeaders(),
             'body' => json_encode($data)
         ];
-        return $this->service->executeHttpRequest('POST', $uri, $options);
+        return $this->service->executeHttpRequest($method, $uri, $options);
+    }
+
+    public function insert(array $data)
+    {
+        return $this->executeDml('POST', $data);
+    }
+
+    public function update(string $id, array $data)
+    {
+        return $this->executeDml('PATCH', $data, $this->primaryKey . '=eq.' . $id);
     }
 
     public function fetchAll()
     {
-        $this->defaultGetCall('select=*');
+        $this->executeQuery('select=*');
         return $this;
     }
 
     public function findBy(string $column, string $value)
     {
-        $this->defaultGetCall($column . '=eq.' . $value);
+        $this->executeQuery($column . '=eq.' . $value);
         return $this;
     }
 
     public function join(string $foreignTable, string $foreignKey)
     {
-        $this->defaultGetCall('select=*,' . $foreignTable . '(' . $foreignKey . ', *)');
+        $this->executeQuery('select=*,' . $foreignTable . '(' . $foreignKey . ', *)');
         return $this;
     }
 }
