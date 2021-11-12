@@ -2,7 +2,7 @@
 
 namespace PHPSupabase;
 
-class Table {
+class Database {
     private $service;
     private $tableName;
     private $bearerToken;
