@@ -45,7 +45,7 @@ class Service {
 
     public function setHeader(string $header, string $value) : void
     {
-        $this->header[$header] = $value;
+        $this->headers[$header] = $value;
     }
 
     public function getHeaders() : array

@@ -28,7 +28,7 @@ class Auth {
             'headers' => $this->service->getHeaders(),
             'body'    => json_encode($fields)
         ];
-        $this->service->executeHttpRequest('POST', $uri, $options);
+        $this->data = $this->service->executeHttpRequest('POST', $uri, $options);
     }
 
     public function createUserWithEmailAndPassword(string $email, string $password)
@@ -80,5 +80,15 @@ class Auth {
             'email' => $email
         ];
         $this->defaultPostCallUserManagement('recover', $fields);
+    }
+
+    public function getUser(string $bearerUserToken)
+    {
+        $uri = $this->service->getUriBase('user');
+        $this->service->setHeader('Authorization', 'Bearer ' . $bearerUserToken);
+        $options = [
+            'headers' => $this->service->getHeaders()
+        ];
+        return $this->service->executeHttpRequest('GET', $uri, $options);
     }
 }
