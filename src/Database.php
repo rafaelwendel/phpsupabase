@@ -46,4 +46,10 @@ class Database {
         $this->defaultGetCall($column . '=eq.' . $value);
         return $this;
     }
+
+    public function join(string $foreignTable, string $foreignKey)
+    {
+        $this->defaultGetCall('select=*,' . $foreignTable . '(' . $foreignKey . ', *)');
+        return $this;
+    }
 }
