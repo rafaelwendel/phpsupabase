@@ -19,6 +19,11 @@ class Table {
         return $this->result;
     }
 
+    public function getFirstResult()
+    {
+        return $this->result[0];
+    }
+
     private function defaultGetCall(string $queryString)
     {
         $uri = $this->service->getUriBase($this->tableName . '?' . $queryString);
