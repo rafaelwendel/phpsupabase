@@ -27,4 +27,10 @@ class Table {
         ];
         $this->result = $this->service->executeHttpRequest('GET', $uri, $options);
     }
+
+    public function fetchAll()
+    {
+        $this->defaultGetCall('select=*');
+        return $this;
+    }
 }
