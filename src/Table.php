@@ -21,7 +21,9 @@ class Table {
 
     public function getFirstResult()
     {
-        return $this->result[0];
+        return count($this->result) > 0
+            ? $this->result[0]
+            : [];
     }
 
     private function defaultGetCall(string $queryString)
@@ -36,6 +38,12 @@ class Table {
     public function fetchAll()
     {
         $this->defaultGetCall('select=*');
+        return $this;
+    }
+
+    public function findBy(string $column, string $value)
+    {
+        $this->defaultGetCall($column . '=eq.' . $value);
         return $this;
     }
 }
