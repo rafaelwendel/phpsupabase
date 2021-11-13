@@ -81,6 +81,12 @@ class Database {
         return $this;
     }
 
+    public function findByLike(string $column, string $value)
+    {
+        $this->executeQuery($column . '=like.%' . $value . '%');
+        return $this;
+    }
+
     public function join(string $foreignTable, string $foreignKey)
     {
         $this->executeQuery('select=*,' . $foreignTable . '(' . $foreignKey . ', *)');
