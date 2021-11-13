@@ -6,7 +6,6 @@ class Database {
     private $service;
     private $tableName;
     private $primaryKey;
-    private $bearerToken;
     private $result;
 
     public function __construct(Service $service, string $tableName, $primaryKey)
@@ -14,6 +13,11 @@ class Database {
         $this->service = $service;
         $this->tableName = $tableName;
         $this->primaryKey = $primaryKey;
+    }
+
+    public function getError()
+    {
+        return $this->service->getError();
     }
 
     public function getResult()
@@ -58,6 +62,11 @@ class Database {
     public function update(string $id, array $data)
     {
         return $this->executeDml('PATCH', $data, $this->primaryKey . '=eq.' . $id);
+    }
+
+    public function delete(string $id)
+    {
+        return $this->executeDml('DELETE', [], $this->primaryKey . '=eq.' . $id);
     }
 
     public function fetchAll()
