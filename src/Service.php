@@ -58,12 +58,12 @@ class Service {
         return $this->error;
     }
 
-    public function createAuth()
+    public function createAuth() : Auth
     {
         return new Auth($this);
     }
 
-    public function initializeDatabase(string $tableName, string $primaryKey = 'id')
+    public function initializeDatabase(string $tableName, string $primaryKey = 'id') : Database
     {
         return new Database($this, $tableName, $primaryKey);
     }
@@ -83,7 +83,7 @@ class Service {
         }
     }
 
-    public function executeHttpRequest(string $method, string $uri, array $options)
+    public function executeHttpRequest(string $method, string $uri, array $options) : mixed
     {
         try{
             $response = $this->httpClient->request(
