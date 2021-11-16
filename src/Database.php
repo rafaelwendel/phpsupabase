@@ -104,9 +104,11 @@ class Database {
         $query['select'] = isset($args['select'])
                             ? $args['select']
                             : '*';
+
         $table = isset($args['from'])
                 ? $args['from']
                 : $this->tableName;
+
         if(isset($args['join'])){
             if(is_array($args['join']) && count($args['join']) > 0){
                 foreach ($args['join'] as $join){
@@ -124,9 +126,24 @@ class Database {
                 throw new Exception('"JOIN" argument must be an array');
             }
         }
+
+        if(isset($args['where'])){
+            if(is_array($args['where']) && count($args['where']) > 0){
+                foreach ($args['where'] as $key => $where){
+                    $query['where'][] = $key . '=' . $where;
+                }
+            }
+            else{
+                throw new Exception('"WHERE" argument must be an array');
+            }
+        }
+
         $queryString = 'select=' . $query['select'];
         if(isset($query['join'])){
             $queryString .= ',' . implode(',', $query['join']);
+        }
+        if(isset($query['where'])){
+            $queryString .= '&' . implode(',', $query['where']);
         }
         if(isset($args['range'])){
             $this->service->setHeader('Range', $args['range']);
