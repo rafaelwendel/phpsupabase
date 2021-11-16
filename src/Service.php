@@ -83,7 +83,7 @@ class Service {
         }
     }
 
-    public function executeHttpRequest(string $method, string $uri, array $options) : mixed
+    public function executeHttpRequest(string $method, string $uri, array $options) : array
     {
         try{
             $response = $this->httpClient->request(

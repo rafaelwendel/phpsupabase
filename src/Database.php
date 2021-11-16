@@ -2,6 +2,8 @@
 
 namespace PHPSupabase;
 
+use Exception;
+
 class Database {
     private $service;
     private $tableName;
@@ -20,7 +22,7 @@ class Database {
         return $this->service->getError();
     }
 
-    public function getResult() : mixed
+    public function getResult() : array
     {
         return $this->result;
     }
@@ -32,9 +34,12 @@ class Database {
             : [];
     }
 
-    private function executeQuery(string $queryString) : void
+    private function executeQuery(string $queryString, string $table = null) : void
     {
-        $uri = $this->service->getUriBase($this->tableName . '?' . $queryString);
+        $table = is_null($table)
+                ? $this->tableName
+                : $table;
+        $uri = $this->service->getUriBase($table . '?' . $queryString);
         $options = [
             'headers' => $this->service->getHeaders()
         ];
@@ -90,6 +95,43 @@ class Database {
     public function join(string $foreignTable, string $foreignKey) : Database
     {
         $this->executeQuery('select=*,' . $foreignTable . '(' . $foreignKey . ', *)');
+        return $this;
+    }
+
+    public function createCustomQuery(array $args)
+    {
+        $query = [];
+        $query['select'] = isset($args['select'])
+                            ? $args['select']
+                            : '*';
+        $table = isset($args['from'])
+                ? $args['from']
+                : $this->tableName;
+        if(isset($args['join'])){
+            if(is_array($args['join']) && count($args['join']) > 0){
+                foreach ($args['join'] as $join){
+                    if(is_array($join) && isset($join['table']) && isset($join['tableid'])){
+                        $query['join'][] = $join['table'] . 
+                                '(' . $join['tableid'] . ',' 
+                                . (isset($join['select']) ? $join['select'] : '*') . ')'; 
+                    }
+                    else{
+                        throw new Exception('"JOIN" argument must have "table" and "tableid" keys');
+                    }
+                }
+            }
+            else {
+                throw new Exception('"JOIN" argument must be an array');
+            }
+        }
+        $queryString = 'select=' . $query['select'];
+        if(isset($query['join'])){
+            $queryString .= ',' . implode(',', $query['join']);
+        }
+        if(isset($args['range'])){
+            $this->service->setHeader('Range', $args['range']);
+        }
+        $this->executeQuery($queryString, $table);
         return $this;
     }
 }
