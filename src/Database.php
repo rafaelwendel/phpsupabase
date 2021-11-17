@@ -27,7 +27,7 @@ class Database {
         return $this->result;
     }
 
-    public function getFirstResult() : mixed
+    public function getFirstResult() : object
     {
         return count($this->result) > 0
             ? $this->result[0]
@@ -112,13 +112,13 @@ class Database {
         if(isset($args['join'])){
             if(is_array($args['join']) && count($args['join']) > 0){
                 foreach ($args['join'] as $join){
-                    if(is_array($join) && isset($join['table']) && isset($join['tableid'])){
+                    if(is_array($join) && isset($join['table']) && isset($join['tablekey'])){
                         $query['join'][] = $join['table'] . 
-                                '(' . $join['tableid'] . ',' 
+                                '(' . $join['tablekey'] . ',' 
                                 . (isset($join['select']) ? $join['select'] : '*') . ')'; 
                     }
                     else{
-                        throw new Exception('"JOIN" argument must have "table" and "tableid" keys');
+                        throw new Exception('"JOIN" argument must have "table" and "tablekey" keys');
                     }
                 }
             }
@@ -143,11 +143,12 @@ class Database {
             $queryString .= ',' . implode(',', $query['join']);
         }
         if(isset($query['where'])){
-            $queryString .= '&' . implode(',', $query['where']);
+            $queryString .= '&' . implode('&', $query['where']);
         }
         if(isset($args['range'])){
             $this->service->setHeader('Range', $args['range']);
         }
+        
         $this->executeQuery($queryString, $table);
         return $this;
     }
