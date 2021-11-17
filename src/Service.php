@@ -163,9 +163,9 @@ class Service {
      * @param $method String The request method (GET, POST, PUT, DELETE, PATCH, ...)
      * @param $uri String The URI to be requested (including the endpoint)
      * @param $options array Requisition options (header, body, ...) 
-     * @return array
+     * @return array|object|null
      */
-    public function executeHttpRequest(string $method, string $uri, array $options) : array
+    public function executeHttpRequest(string $method, string $uri, array $options)
     {
         try{
             $response = $this->httpClient->request(
