@@ -68,6 +68,11 @@ class Service {
         return new Database($this, $tableName, $primaryKey);
     }
 
+    public function initializeQueryBuilder() : QueryBuilder
+    {
+        return new QueryBuilder($this);
+    }
+
     public function formatRequestException(\GuzzleHttp\Exception\RequestException $e) : void
     {
         if($e->hasResponse()){
