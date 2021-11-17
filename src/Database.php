@@ -100,22 +100,26 @@ class Database {
 
     public function createCustomQuery(array $args)
     {
-        $query = [];
-        $query['select'] = isset($args['select'])
+        $queryBuilder = $this->service->initializeQueryBuilder();
+        
+        $select = isset($args['select'])
                             ? $args['select']
                             : '*';
+        $queryBuilder->select($select);
 
-        $table = isset($args['from'])
+        $from = isset($args['from'])
                 ? $args['from']
                 : $this->tableName;
+        $queryBuilder->from($from);
 
         if(isset($args['join'])){
             if(is_array($args['join']) && count($args['join']) > 0){
                 foreach ($args['join'] as $join){
                     if(is_array($join) && isset($join['table']) && isset($join['tablekey'])){
-                        $query['join'][] = $join['table'] . 
-                                '(' . $join['tablekey'] . ',' 
-                                . (isset($join['select']) ? $join['select'] : '*') . ')'; 
+                        $select = isset($join['select'])
+                                    ? $join['select']
+                                    : null;
+                        $queryBuilder->join($join['table'], $join['tablekey'], $select);
                     }
                     else{
                         throw new Exception('"JOIN" argument must have "table" and "tablekey" keys');
@@ -130,7 +134,7 @@ class Database {
         if(isset($args['where'])){
             if(is_array($args['where']) && count($args['where']) > 0){
                 foreach ($args['where'] as $key => $where){
-                    $query['where'][] = $key . '=' . $where;
+                    $queryBuilder->where($key, $where);
                 }
             }
             else{
@@ -138,18 +142,11 @@ class Database {
             }
         }
 
-        $queryString = 'select=' . $query['select'];
-        if(isset($query['join'])){
-            $queryString .= ',' . implode(',', $query['join']);
-        }
-        if(isset($query['where'])){
-            $queryString .= '&' . implode('&', $query['where']);
-        }
         if(isset($args['range'])){
-            $this->service->setHeader('Range', $args['range']);
+            $queryBuilder->range($args['range']);
         }
         
-        $this->executeQuery($queryString, $table);
+        $this->result = $queryBuilder->execute()->getResult();
         return $this;
     }
 }
