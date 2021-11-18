@@ -100,3 +100,21 @@ catch(Exception $e){
     echo $auth->getError();
 }
 ```
+
+#### Get the data of the logged in user
+
+To get the user data, you need to have the `access_token` (Bearer Token), which was returned in the login action.
+
+```php
+
+$auth = $service->createAuth();
+$bearerToken = 'THE_ACCESS_TOKEN';
+
+try{
+    $data = $auth->getUser($bearerToken);
+    print_r($data); // show all user data returned
+}
+catch(Exception $e){
+    echo $auth->getError();
+}
+```
