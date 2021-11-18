@@ -118,3 +118,31 @@ catch(Exception $e){
     echo $auth->getError();
 }
 ```
+
+#### Update user data
+
+It is possible to update user data (such as email and password) and also create/update `metadata`, which are additional data that we can create (such as `first_name`, `last_name`, `instagram_account` or any other).
+
+The `updateUser` method must take the `bearerToken` as argument. In addition to it, we have three more optional parameters, which are: `email`, `password` and `data` (array). If you don't want to change some of this data, just set it to `null`.
+
+An example of how to save/update two new meta data (`first_name` and `last_name`) for the user.
+
+```php
+
+$auth = $service->createAuth();
+$bearerToken = 'THE_ACCESS_TOKEN';
+
+$newUserMetaData = [
+    'first_name' => 'Michael',
+    'last_name'  => 'Jordan'
+];
+
+try{
+    //the parameters 2 (email) and 3(password) are null because this data will not be changed
+    $data = $auth->updateUser($bearerToken, null, null, $newUserMetaData);
+    print_r($data); // show all user data returned
+}
+catch(Exception $e){
+    echo $auth->getError();
+}
+```
