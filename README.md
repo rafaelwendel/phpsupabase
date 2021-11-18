@@ -1,6 +1,6 @@
 # PHPSupabase
 
-PHPSupabase é uma biblioteca escrita em linguagem php, que permite a utilização dos recursos de um projeto criado no Supabase ([supabase.io](https://supabase.io)), através de integração com a sua API Rest.
+PHPSupabase is a library written in php language, which allows you to use the resources of a project created in Supabase ([supabase.io](https://supabase.io)), through integration with its Rest API.
 
 ## About Supabase
 
@@ -12,3 +12,17 @@ Supabase is "The Open Source Firebase Alternative". Through it, is possible to c
 - Manage user authentication (with email/password, magic links, among others)
 - Insert, Update, Delete and Fetch data in Postgres Database (by Supabase project Rest API)
 - A QueryBuilder class to filter project data in uncomplicated way
+
+## Instalation & loading
+
+PHPSupabase is available on [Packagist](https://packagist.org/packages/rafaelwendel/phpsupabase), and instalation via [Composer](https://getcomposer.org) is the recommended way to install it. Add the follow line to your `composer.json` file:
+
+```json
+"rafaelwendel/phpsupabase" : "1.0"
+```
+
+or run
+
+```sh
+composer require rafaelwendel/phpsupabase
+```

@@ -1,6 +1,7 @@
 {
     "name": "rafaelwendel/phpsupabase",
     "description" : "Php client to use Supabase",
+    "version" : "1.0",
     "type": "library",
     "homepase": "https://github.com/rafaelwendel/phpsupabase",
     "authors": [
