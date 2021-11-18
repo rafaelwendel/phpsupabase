@@ -146,3 +146,4 @@ catch(Exception $e){
     echo $auth->getError();
 }
 ```
+Note that in the array returned now, the keys `first_name` and `last_name` were added to `user_metadata`.
