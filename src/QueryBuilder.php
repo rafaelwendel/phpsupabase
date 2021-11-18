@@ -44,6 +44,16 @@ class QueryBuilder {
     }
 
     /**
+     * Returns the error generated
+     * @access public
+     * @return string
+     */
+    public function getError() : string
+    {
+        return $this->service->getError();
+    }
+
+    /**
      * Add the "select" to the query
      * @access public
      * @param $select String The select (Ex: * OR column1, column2, ...)
