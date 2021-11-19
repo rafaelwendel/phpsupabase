@@ -147,3 +147,87 @@ catch(Exception $e){
 }
 ```
 Note that in the array returned now, the keys `first_name` and `last_name` were added to `user_metadata`.
+
+### Database class
+
+The Database class provides features to perform actions (insert, update, delete and fetch) on the Postgre database tables provided by the Supabase project.
+
+For the samples below, consider the following database structure:
+
+```sql
+categories (id INT AUTO_INCREMENT, categoryname VARCHAR(32))
+products (id INT AUTO_INCREMENT, productname VARCHAR(32), price FLOAT, categoryid INT)
+```
+
+The Database class is also instantiated from the `service` object. You must pass the `table` that will be used and its respective primary key (usually `id`).
+
+Let's create an object to work with the `categories` table:
+
+```php
+$db = $service->initializeDatabase('categories', 'id');
+```
+
+Through the `db` variable it is possible to perform the actions on the `categories` table.
+
+#### Insert data
+
+Inserting a new record in the `categories` table:
+
+```php
+$db = $service->initializeDatabase('categories', 'id');
+
+$newCategory = [
+    'categoryname' => 'Video Games'
+];
+
+try{
+    $data = $db->insert($newCategory);
+    print_r($data); //returns an array with the new register data
+    /*
+        Array
+        (
+            [0] => stdClass Object
+                (
+                    [id] => 1
+                    [categoryname] => Video Games
+                )
+
+        )
+    */
+}
+catch(Exception $e){
+    echo $e->getMessage();
+}
+```
+
+Now let's insert a new product from `category 1 - Video Games`:
+
+```php
+$db = $service->initializeDatabase('products', 'id');
+
+$newProduct = [
+    'productname' => 'XBOX Series S',
+    'price'       => '299.99',
+    'categoryid'  => '1' //Category "Video Games"
+];
+
+try{
+    $data = $db->insert($newProduct);
+    print_r($data); //returns an array with the new register data
+    /*
+        Array
+        (
+            [0] => stdClass Object
+                (
+                    [id] => 1
+                    [productname] => XBOX Series S
+                    [price] => 299.99
+                    [categoryid] => 1
+                )
+        )
+    */
+}
+catch(Exception $e){
+    echo $e->getMessage();
+}
+```
