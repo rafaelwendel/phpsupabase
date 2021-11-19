@@ -231,3 +231,38 @@ catch(Exception $e){
     echo $e->getMessage();
 }
 ```
+
+#### Update data
+
+To update a record in the database, we use the `update` method, passing as parameter the `id` (PK) of the record to be updated and an `array` containing the new data (NOTE: For now, it is not possible to perform an update using a parameter other than the primary key).
+
+In the example below, we will update the `productname` and `price` of the product with `id=1` ("Xbox Series S" to "XBOX Series S 512GB" and "299.99" to "319.99"):
+
+```php
+$db = $service->initializeDatabase('products', 'id');
+
+$updateProduct = [
+    'productname' => 'XBOX Series S 512GB',
+    'price'       => '319.99'
+];
+
+try{
+    $data = $db->update('1', $updateProduct); //the first parameter ('1') is the product id
+    print_r($data); //returns an array with the product data (updated)
+    /*
+        Array
+        (
+            [0] => stdClass Object
+                (
+                    [id] => 1
+                    [productname] => XBOX Series S
+                    [price] => 299.99
+                    [categoryid] => 1
+                )
+        )
+    */
+}
+catch(Exception $e){
+    echo $e->getMessage();
+}
+```
