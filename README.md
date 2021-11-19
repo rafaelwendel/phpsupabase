@@ -266,3 +266,21 @@ catch(Exception $e){
     echo $e->getMessage();
 }
 ```
+
+#### Delete data
+
+To delete a record from the table, just call the `delete` method and pass the `id` (PK) of the record to be deleted as a parameter.
+
+The following code deletes the product of `id=1` in the `products` table:
+
+```php
+$db = $service->initializeDatabase('products', 'id');
+
+try{
+    $data = $db->delete('1'); //the parameter ('1') is the product id
+    echo 'Product deleted successfully';
+}
+catch(Exception $e){
+    echo $e->getMessage();
+}
+```
