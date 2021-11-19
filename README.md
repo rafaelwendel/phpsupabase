@@ -255,8 +255,8 @@ try{
             [0] => stdClass Object
                 (
                     [id] => 1
-                    [productname] => XBOX Series S
-                    [price] => 299.99
+                    [productname] => XBOX Series S 512GB
+                    [price] => 319.99
                     [categoryid] => 1
                 )
         )
