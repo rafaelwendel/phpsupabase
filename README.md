@@ -200,7 +200,7 @@ catch(Exception $e){
 }
 ```
 
-Now let's insert a new product from `category 1 - Video Games`:
+Now let's insert a new product from category `1 - Video Games`:
 
 ```php
 $db = $service->initializeDatabase('products', 'id');
