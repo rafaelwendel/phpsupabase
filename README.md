@@ -2,6 +2,10 @@
 
 PHPSupabase is a library written in php language, which allows you to use the resources of a project created in Supabase ([supabase.io](https://supabase.io)), through integration with its Rest API.
 
+## Content
+
+- [About Supabase](#about-supabase)
+
 ## About Supabase
 
 Supabase is "The Open Source Firebase Alternative". Through it, is possible to create a backend in less than 2 minutes. Start your project with a Postgres Database, Authentication, instant APIs, realtime subscriptions and Storage.
