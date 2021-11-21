@@ -11,6 +11,7 @@
             "email": "rafaelwendel@hotmail.com"
         }
     ],
+    "minimum-stability": "stable",
     "require": {
         "guzzlehttp/guzzle": "^7.0"
     },
