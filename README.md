@@ -284,3 +284,145 @@ catch(Exception $e){
     echo $e->getMessage();
 }
 ```
+#### Fetch data
+
+The following methods for fetching data are available in the `Database` class:
+
+- `fetchAll()`: fetch all table records;
+- `findBy(string $column, string $value)`: fetch records filtereds by a column/value (using the `=` operator);
+- `findBy(string $column, string $value)`: fetch records filtereds by a column/value (using the `LIKE` operator);
+- `join(string $foreignTable, string $foreignKey)`: make a `join` between the seted table and another table related and fetch records;
+- `createCustomQuery(array $args)`: build a custom SQL query. The following `keys` are valid for the `args` argument:
+    - `select`
+    - `from`
+    - `join`
+    - `where`
+    - `range`
+
+All the mentioned methods return the self instance of `Database` class. To access the fetched data, call the `getResult` method.
+
+See some examples:
+
+```php
+$db = $service->initializeDatabase('products', 'id');
+
+try{
+    $listProducts = $db->fetchAll()->getResult(); //fetch all products
+    foreach ($listProducts as $product){
+        echo $product->id . ' - ' . $product->productname . '($' . $product->price . ') <br />';
+    }
+}
+catch(Exception $e){
+    echo $e->getMessage();
+}
+```
+
+Now, an example using the `findBy` method:
+
+```php
+$db = $service->initializeDatabase('products', 'id');
+
+try{
+    $listProducts = $db->findBy('productname', 'PlayStation 5')->getResult(); //Searches for products that have the value "PlayStation 5" in the "productname" column
+    foreach ($listProducts as $product){
+        echo $product->id . ' - ' . $product->productname . '($' . $product->price . ') <br />';
+    }
+}
+catch(Exception $e){
+    echo $e->getMessage();
+}
+```
+
+Searching for `products` and adding a join with the `categories` table:
+
+```php
+$db = $service->initializeDatabase('products', 'id');
+
+try{
+    $listProducts = $db->join('categories', 'id')->getResult(); //fetch data from "products" JOIN "categories"
+    foreach ($listProducts as $product){
+        //SHOW "productname" - "categoryname"
+        echo $product->productname . ' - ' . $product->categories->categoryname . '<br />';
+    }
+}
+catch(Exception $e){
+    echo $e->getMessage();
+}
+```
+
+An example of a custom query to search `id,productname,price` for all `products` "JOIN" `categories` filtering by `price` (`price` greater than `200.00`):
+
+```php
+$db = $service->initializeDatabase('products', 'id');
+
+$query = [
+    'select' => 'id,productname,price',
+    'from'   => 'products',
+    'join'   => [
+        [
+            'table' => 'categories',
+            'tablekey' => 'id'
+        ]
+    ],
+    'where' => 
+    [
+        'price' => 'gt.200' //"gt" means "greater than" (>)
+    ]
+];
+
+try{
+    $listProducts = $db->createCustomQuery($query)->getResult();
+    foreach ($listProducts as $product){
+        echo $product->id . ' - ' . $product->productname . '($' . $product->price . ') <br />';
+    }
+}
+catch(Exception $e){
+    echo $e->getMessage();
+}
+```
+
+Other examples for custom query:
+
+```php
+//products with price > 200 AND productname LIKE '%n%'
+$query = [
+    'select' => 'id,productname,price',
+    'from'   => 'products',
+    'where' => 
+    [
+        'price' => 'gt.200', //"gt" means "greater than" (>)
+        'productname' => 'like.%n%' //like operator
+    ]
+];
+
+//products with categoryid = 1
+$query = [
+    'select' => 'id,productname,price',
+    'from'   => 'products',
+    'where' => 
+    [
+        'categoryid' => 'eq.1', //"eq" means "equal" (=)
+    ]
+];
+
+//products with price < 1000 LIMIT 4 results
+$query = [
+    'select' => 'id,productname,price',
+    'from'   => 'products',
+    'where' => 
+    [
+        'price' => 'lt.1000', //"lt" means "less than" (<)
+    ],
+    'range' => '0-3' //4 first rows
+];
+```
+
+Some operators available for the `where` clause:
+- `eq`: equal
+- `neq`: not equal
+- `gt`: greater than
+- `gte`: greater than or equal
+- `lt`: less than
+- `lte`: less than or equal
+- `like`: search for a specified pattern in a column
+- `ilike`: search for a specified pattern in a column (case insensitive)
