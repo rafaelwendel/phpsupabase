@@ -18,7 +18,7 @@ Supabase is "The Open Source Firebase Alternative". Through it, is possible to c
 PHPSupabase is available on [Packagist](https://packagist.org/packages/rafaelwendel/phpsupabase), and instalation via [Composer](https://getcomposer.org) is the recommended way to install it. Add the follow line to your `composer.json` file:
 
 ```json
-"rafaelwendel/phpsupabase" : "1.0"
+"rafaelwendel/phpsupabase" : "^0.0.1"
 ```
 
 or run
