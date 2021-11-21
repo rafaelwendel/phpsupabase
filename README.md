@@ -5,6 +5,20 @@ PHPSupabase is a library written in php language, which allows you to use the re
 ## Content
 
 - [About Supabase](#about-supabase)
+- [PHPSupabase Features](#phpsupabase-features)
+- [Instalation & Loading](#instalation-&-features)
+- [How to use](#how-to-use)
+    - [Auth Class](#auth-class)
+        - [Create a new user with email and password](#create-a-new-user-with-email-and-password)
+        - [Sign in with email and password](#sign-in-with-email-and-password)
+        - [Get the data of the logged in user](#get-the-data-of-the-logged-in-user)
+        - [Update user data](#update-user-data)
+    - [Database class](#database-class)
+        - [Insert data](#insert-data)
+        - [Update data](#update-data)
+        - [Delete data](#delete-data)
+        - [Fetch data](#fetch-data)
+        - [Comparison operators](#comparison-operators)
 
 ## About Supabase
 
