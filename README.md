@@ -435,6 +435,8 @@ $query = [
 ];
 ```
 
+#### Comparison operators
+
 Some operators available for the `where` clause:
 - `eq`: equal
 - `neq`: not equal
