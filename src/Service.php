@@ -146,9 +146,9 @@ class Service {
     {
         if($e->hasResponse()){
             $res = json_decode($e->getResponse()->getBody());
-            $seacrhItems = ['msg', 'message', 'error_description'];
+            $searchItems = ['msg', 'message', 'error_description'];
 
-            foreach($seacrhItems as $item){
+            foreach($searchItems as $item){
                 if(isset($res->$item)){
                     $this->error = $res->$item;
                     break;
