@@ -19,6 +19,7 @@ PHPSupabase is a library written in php language, which allows you to use the re
         - [Delete data](#delete-data)
         - [Fetch data](#fetch-data)
         - [Comparison operators](#comparison-operators)
+    - [QueryBuilder class](#querybuilder-class)
 
 ## About Supabase
 
@@ -446,3 +447,83 @@ Some operators available for the `where` clause:
 - `lte`: less than or equal
 - `like`: search for a specified pattern in a column
 - `ilike`: search for a specified pattern in a column (case insensitive)
+
+### QueryBuilder class
+
+The QueryBuilder class provides methods for dynamically building SQL queries. It is instantiated from the `service` object.
+
+```php
+$query = $service->initializeQueryBuilder();
+```
+
+Available methods:
+
+- `select(string $select)`: the fields (comma separated) or `*`
+- `from(string $from)`: the table
+- `join(string $table, string $tablekey, string $select = null)`: related table
+- `where(string $column, string $value)`: conditions
+- `range(string $range)`: results range
+
+All the mentioned methods return the self instance of `QueryBuilder` class. To run the mounted query, call the `execute` method. Then, to access the fetched data, call the `getResult` method.
+
+An example to fetch all data from the `products` table:
+
+```php
+$query = $service->initializeQueryBuilder();
+
+try{
+    $listProducts = $query->select('*')
+                ->from('products')
+                ->execute()
+                ->getResult();
+    foreach ($listProducts as $product){
+        echo $product->id . ' - ' . $product->productname . '($' . $product->price . ') <br />';
+    }
+}
+catch(Exception $e){
+    echo $e->getMessage();
+}
+```
+An example to fetch all data from the `products` "JOIN" `categories`:
+
+```php
+$query = $service->initializeQueryBuilder();
+
+try{
+    $listProducts = $query->select('*')
+                ->from('products')
+                ->join('categories', 'id')
+                ->execute()
+                ->getResult();
+    foreach ($listProducts as $product){
+        echo $product->id . ' - ' . $product->productname . '($' . $product->price . ') - '. $product->categories->categoryname .' <br />';
+    }
+}
+catch(Exception $e){
+    echo $e->getMessage();
+}
+```
+
+Fetch `products` with `categoryid=1` and `price>200`:
+
+```php
+$query = $service->initializeQueryBuilder();
+
+try{
+    $listProducts = $query->select('*')
+                ->from('products')
+                ->join('categories', 'id')
+                ->where('categoryid', 'eq.1') //eq -> equal
+                ->where('price', 'gt.200') // gt -> greater than
+                ->execute()
+                ->getResult();
+    foreach ($listProducts as $product){
+        echo $product->id . ' - ' . $product->productname . '($' . $product->price . ') - '. $product->categories->categoryname .' <br />';
+    }
+}
+catch(Exception $e){
+    echo $e->getMessage();
+}
+```
+
+Some of the operators to be used in the `where` method can be seen in the [Comparison operators](#comparison-operators) section.
