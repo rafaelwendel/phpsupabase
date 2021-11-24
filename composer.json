@@ -5,6 +5,7 @@
     "version" : "0.0.1",
     "type": "library",
     "homepage": "https://github.com/rafaelwendel/phpsupabase",
+    "license": "MIT",
     "authors": [
         {
             "name": "Rafael Wendel Pinheiro",
