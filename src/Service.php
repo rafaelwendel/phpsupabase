@@ -29,6 +29,17 @@ class Service {
     }
 
     /**
+     * Set bearerToken to be added into headers and to be used for future requests
+     * @access public
+     * @param $bearerToken String The bearer user token (generated in sign in process)  
+     * @return Service
+     */
+    public function setBearerToken($bearerToken)
+    {
+        $this->setHeader('Authorization', 'Bearer ' . $bearerToken);
+    }
+
+    /**
      * Format URI base with slash at end
      * @access private
      * @param $uriBase String API URI base (Ex: "https://abcdefgh.supabase.co/rest/v1/" OR "https://abcdefgh.supabase.co/auth/v1/") 

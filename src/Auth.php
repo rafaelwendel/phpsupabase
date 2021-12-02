@@ -136,7 +136,7 @@ class Auth {
         if(is_array($data) && count($data) > 0){
             $fields['data'] = $data;
         }
-        
+
         $this->defaultPostCallUserManagement('signup', $fields);
     }
 
