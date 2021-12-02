@@ -96,6 +96,16 @@ catch(Exception $e){
 
 This newly created user is now in the project's user table and can be seen in the "Authentication" section of the Supabase panel. To be enabled, the user must access the confirmation link sent to the email.
 
+In the third parameter of the `createUserWithEmailAndPassword` method you can pass an array containing the `user_metadata` to be saved (Ex: `name` and `age`)
+
+```php
+$user_metadata = [
+    'name' => 'Lebron James',
+    'age' => '34'
+];
+$auth->createUserWithEmailAndPassword('lebron@email.com', 'LebronPassword', $user_metadata);
+```
+
 #### Sign in with email and password
 
 Now let's see how to authenticate a user. The Authentication request returns a `acess_token` (Bearer Token) that can be used later for other actions and also checks expiration time. In addition, other information such as `refresh_token` and user data are also returned. Invalid login credentials result in throwing a new exception
