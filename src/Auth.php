@@ -59,14 +59,19 @@ class Auth {
      * @access public
      * @param $email String The email address of new user
      * @param $password String The password of new user
+     * @param $data array (optional) The user meta data
      * @return void
      */
-    public function createUserWithEmailAndPassword(string $email, string $password) : void
+    public function createUserWithEmailAndPassword(string $email, string $password, array $data = []) : void
     {
         $fields = [
             'email' => $email,
             'password' => $password
         ];
+        if(is_array($data) && count($data) > 0){
+            $fields['data'] = $data;
+        }
+
         $this->defaultPostCallUserManagement('signup', $fields);
     }
 
@@ -119,14 +124,19 @@ class Auth {
      * @access public
      * @param $phone String The phone number of new user
      * @param $password String The password of new user
+     * @param $data array (optional) The user meta data
      * @return void
      */
-    public function createUserWithPhoneAndPassword(string $phone, string $password) : void
+    public function createUserWithPhoneAndPassword(string $phone, string $password, array $data = []) : void
     {
         $fields = [
             'phone' => $phone,
             'password' => $password
         ];
+        if(is_array($data) && count($data) > 0){
+            $fields['data'] = $data;
+        }
+        
         $this->defaultPostCallUserManagement('signup', $fields);
     }
 
