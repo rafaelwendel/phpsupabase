@@ -198,7 +198,7 @@ $db = $service->initializeDatabase('categories', 'id');
 
 Through the `db` variable it is possible to perform the actions on the `categories` table.
 
-NOTE: If Row Level Security (RLS) is enabled in the used table, pass the `bearerToken` to the `Service` class:
+NOTE: If Row Level Security (RLS) is enabled in the used table, pass the `bearerToken` to the `Service` object:
 
 ```php
 $bearerToken = 'THE_ACCESS_TOKEN'; //returned in the login action.
@@ -473,7 +473,7 @@ The QueryBuilder class provides methods for dynamically building SQL queries. It
 $query = $service->initializeQueryBuilder();
 ```
 
-NOTE: If Row Level Security (RLS) is enabled on any of the tables used, pass the `bearerToken` to the `Service` class:
+NOTE: If Row Level Security (RLS) is enabled on any of the tables used, pass the `bearerToken` to the `Service` object:
 
 ```php
 $bearerToken = 'THE_ACCESS_TOKEN'; //returned in the login action.
