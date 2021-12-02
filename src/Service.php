@@ -37,6 +37,7 @@ class Service {
     public function setBearerToken($bearerToken)
     {
         $this->setHeader('Authorization', 'Bearer ' . $bearerToken);
+        return $this;
     }
 
     /**
