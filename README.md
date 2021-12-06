@@ -326,7 +326,7 @@ The following methods for fetching data are available in the `Database` class:
 
 - `fetchAll()`: fetch all table records;
 - `findBy(string $column, string $value)`: fetch records filtereds by a column/value (using the `=` operator);
-- `findBy(string $column, string $value)`: fetch records filtereds by a column/value (using the `LIKE` operator);
+- `findByLike(string $column, string $value)`: fetch records filtereds by a column/value (using the `LIKE` operator);
 - `join(string $foreignTable, string $foreignKey)`: make a `join` between the seted table and another table related and fetch records;
 - `createCustomQuery(array $args)`: build a custom SQL query. The following `keys` are valid for the `args` argument:
     - `select`
