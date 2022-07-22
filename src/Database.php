@@ -231,6 +231,10 @@ class Database {
             }
         }
 
+        if(isset($args['order'])){
+            $queryBuilder->order($args['order']);
+        }
+
         if(isset($args['range'])){
             $queryBuilder->range($args['range']);
         }

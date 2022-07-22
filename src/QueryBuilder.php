@@ -107,6 +107,18 @@ class QueryBuilder {
     }
 
     /**
+     * Add the "order" to the query
+     * @access public
+     * @param $order String The order by column
+     * @return QueryBuilder
+     */
+    public function order(string $order) : QueryBuilder
+    {
+        $this->query['order'] = $order;
+        return $this;
+    }
+
+    /**
      * Add the "range" to the query
      * @access public
      * @param $range String The interval of fetch registers
@@ -140,6 +152,10 @@ class QueryBuilder {
 
         if(isset($this->query['where'])){
             $queryString .= '&' . implode('&', $this->query['where']);
+        }
+
+        if(isset($this->query['order'])){
+            $queryString .= '&order=' . $this->query['order'];
         }
 
         if(isset($this->query['range'])){
