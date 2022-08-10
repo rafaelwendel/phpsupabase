@@ -455,7 +455,7 @@ $query = [
 
 #### Comparison operators
 
-Some operators available for the `where` clause:
+The main operators available for the `where` clause:
 - `eq`: equal
 - `neq`: not equal
 - `gt`: greater than
@@ -464,6 +464,44 @@ Some operators available for the `where` clause:
 - `lte`: less than or equal
 - `like`: search for a specified pattern in a column
 - `ilike`: search for a specified pattern in a column (case insensitive)
+
+Other operators available:
+- `is`
+- `in`
+- `cs`
+- `cd`
+- `sl`
+- `sr`
+- `nxl`
+- `nxr`
+- `adj`
+- `ov`
+- `fts`
+- `plfts`
+- `phfts`
+- `wfts`
+- `not.eq`
+- `not.neq`
+- `not.gt`
+- `not.gte`
+- `not.lt`
+- `not.lte`
+- `not.like`
+- `not.ilike`
+- `not.is`
+- `not.in`
+- `not.cs`
+- `not.cd`
+- `not.sl`
+- `not.sr`
+- `not.nxl`
+- `not.nxr`
+- `not.adj`
+- `not.ov`
+- `not.fts`
+- `not.plfts`
+- `not.phfts`
+- `not.wfts`
 
 ### QueryBuilder class
 
