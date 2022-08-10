@@ -524,6 +524,7 @@ Available methods:
 - `from(string $from)`: the table
 - `join(string $table, string $tablekey, string $select = null)`: related table
 - `where(string $column, string $value)`: conditions
+- `order(string $order)`: the "order by" field
 - `range(string $range)`: results range
 
 All the mentioned methods return the self instance of `QueryBuilder` class. To run the mounted query, call the `execute` method. Then, to access the fetched data, call the `getResult` method.
@@ -566,7 +567,7 @@ catch(Exception $e){
 }
 ```
 
-Fetch `products` with `categoryid=1` and `price>200`:
+Fetch `products` with `categoryid=1` and `price>200` order by `price`:
 
 ```php
 $query = $service->initializeQueryBuilder();
@@ -577,6 +578,7 @@ try{
                 ->join('categories', 'id')
                 ->where('categoryid', 'eq.1') //eq -> equal
                 ->where('price', 'gt.200') // gt -> greater than
+                ->order('price.asc') //"price.desc" for descending
                 ->execute()
                 ->getResult();
     foreach ($listProducts as $product){
