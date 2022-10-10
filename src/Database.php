@@ -26,6 +26,16 @@ class Database {
     }
 
     /**
+     * Returns the Service instance
+     * @access public
+     * @return Service
+     */
+    public function getService() : Service
+    {
+        return $this->service;
+    }
+
+    /**
      * Returns the error generated
      * @access public
      * @return string
