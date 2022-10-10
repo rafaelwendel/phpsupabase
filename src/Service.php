@@ -2,11 +2,14 @@
 
 namespace PHPSupabase;
 
+use GuzzleHttp\Psr7\Response;
+
 class Service {
     private $apiKey;
     private $uriBase;
     private $httpClient;
     private $error;
+    private $response;
 
     private $headers = [
         'Content-Type' => 'application/json'
@@ -82,6 +85,16 @@ class Service {
     public function getHttpClient() : \GuzzleHttp\Client
     {
         return $this->httpClient;
+    }
+
+    /**
+     * Returns the Response of last request
+     * @access public
+     * @return Response
+     */
+    public function getResponse() : Response
+    {
+        return $this->response;
     }
 
     /**
@@ -180,12 +193,12 @@ class Service {
     public function executeHttpRequest(string $method, string $uri, array $options)
     {
         try{
-            $response = $this->httpClient->request(
+            $this->response = $this->httpClient->request(
                 $method,
                 $uri,
                 $options
             );
-            return json_decode($response->getBody());
+            return json_decode($this->response->getBody());
         } catch(\GuzzleHttp\Exception\RequestException $e){
             $this->formatRequestException($e);
             throw $e;
