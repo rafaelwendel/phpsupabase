@@ -108,7 +108,7 @@ $auth->createUserWithEmailAndPassword('lebron@email.com', 'LebronPassword', $use
 
 #### Sign in with email and password
 
-Now let's see how to authenticate a user. The Authentication request returns a `acess_token` (Bearer Token) that can be used later for other actions and also checks expiration time. In addition, other information such as `refresh_token` and user data are also returned. Invalid login credentials result in throwing a new exception
+Now let's see how to authenticate a user. The Authentication request returns a `access_token` (Bearer Token) that can be used later for other actions and also checks expiration time. In addition, other information such as `refresh_token` and user data are also returned. Invalid login credentials result in throwing a new exception
 
 ```php
 
@@ -122,7 +122,7 @@ try{
         $userData = $data->user; //get the user data
         echo 'Login successfully for user ' . $userData->email;
 
-        //save the $data->acess_token in Session, Cookie or other for future requests.
+        //save the $data->access_token in Session, Cookie or other for future requests.
     }
 }
 catch(Exception $e){
