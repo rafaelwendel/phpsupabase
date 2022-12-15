@@ -64,7 +64,7 @@ class Database {
     {
         return count($this->result) > 0
             ? $this->result[0]
-            : [];
+            : new \stdClass;
     }
 
     /**
