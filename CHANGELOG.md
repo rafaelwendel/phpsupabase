@@ -1,5 +1,11 @@
 # Changes in PHPSupabase #
 
+## 0.0.4 - 2022-12-15
+
+### Fixed
+
+- fix: returns an array instead of an object in Database class
+
 ## 0.0.3 - 2022-10-10
 
 ### Added
