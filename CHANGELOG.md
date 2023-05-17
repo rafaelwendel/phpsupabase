@@ -1,5 +1,18 @@
 # Changes in PHPSupabase #
 
+## 0.0.5 - 2022-05-17
+
+### Changed
+
+- Change the Service class constructor to accept the URI base without suffix. It is now possible to use a single service instance to create an auth object or database/querybuilder objects.
+- Change the `getUriBase` method.
+- Change on Auth, Database and QueryBuilder the methods that called `getUriBase`, setting now the suffix (`auth/v1` or `rest/v1`)
+
+### Added
+
+- Create `suffix` attribute in Auth, Database and QueryBuilder classes to set the respective suffix of URI (`auth/v1` or `rest/v1`)
+
+
 ## 0.0.4 - 2022-12-15
 
 ### Fixed

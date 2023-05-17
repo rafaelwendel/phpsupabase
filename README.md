@@ -48,9 +48,9 @@ composer require rafaelwendel/phpsupabase
 
 ## How to use
 
-To use the PHPSupabse library you must have an account and a project created in the Supabase panel. In the project settings (API section), you should note down your project's `API key` and `URL`. (NOTE: Basically we have 2 suffixes to use with the url: `/rest/v1` & `/auth/v1`)
+To use the PHPSupabse library you must have an account and a project created in the Supabase panel. In the project settings (API section), you should note down your project's `API key` and `URL`. (NOTE: Basically we have 2 suffixes to use with the url: `/rest/v1` & `/auth/v1`, but since version `0.0.5` the definition of one of these suffixes is optional)
 
-To start, let's instantiate the `Service()` class. We must pass the `API key` and `url` (with one of the suffixes mentioned above) in the constructor
+To start, let's instantiate the `Service()` class. We must pass the `API key` and `url` in the constructor
 
 ```php
 <?php
@@ -59,7 +59,13 @@ require "vendor/autoload.php";
 
 $service = new PHPSupabase\Service(
     "YOUR_API_KEY", 
-    "https://aaabbbccc.supabase.co/auth/v1/"
+    "https://aaabbbccc.supabase.co"
+);
+
+//In versions 0.0.4 or earlier it is necessary to set the suffix
+$service = new PHPSupabase\Service(
+    "YOUR_API_KEY", 
+    "https://aaabbbccc.supabase.co/auth/v1" // or https://aaabbbccc.supabase.co/rest/v1
 );
 ```
 
