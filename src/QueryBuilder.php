@@ -6,6 +6,7 @@ use Exception;
 use GuzzleHttp\Psr7\Query;
 
 class QueryBuilder {
+    private $suffix = 'rest/v1/';
     private $service;
     private $query;
     private $result;
@@ -183,7 +184,7 @@ class QueryBuilder {
      */
     private function executeQuery(string $queryString) : void
     {
-        $uri = $this->service->getUriBase($this->query['from'] . '?' . $queryString);
+        $uri = $this->service->getUriBase($this->suffix . $this->query['from'] . '?' . $queryString);
         $options = [
             'headers' => $this->service->getHeaders()
         ];

@@ -3,6 +3,7 @@
 namespace PHPSupabase;
 
 class Auth {
+    private $suffix = 'auth/v1/';
     private $service;
     private $data;
 
@@ -46,7 +47,7 @@ class Auth {
      */
     private function defaultPostCallUserManagement(string $endPoint, array $fields) : void
     {
-        $uri = $this->service->getUriBase($endPoint);
+        $uri = $this->service->getUriBase($this->suffix . $endPoint);
         $options = [
             'headers' => $this->service->getHeaders(),
             'body'    => json_encode($fields)
@@ -176,7 +177,7 @@ class Auth {
      */
     public function logout(string $bearerUserToken)
     {
-        $uri = $this->service->getUriBase('logout');
+        $uri = $this->service->getUriBase($this->suffix . 'logout');
         $this->service->setHeader('Authorization', 'Bearer ' . $bearerUserToken);
         $options = [
             'headers' => $this->service->getHeaders()
@@ -192,7 +193,7 @@ class Auth {
      */
     public function getUser(string $bearerUserToken)
     {
-        $uri = $this->service->getUriBase('user');
+        $uri = $this->service->getUriBase($this->suffix . 'user');
         $this->service->setHeader('Authorization', 'Bearer ' . $bearerUserToken);
         $options = [
             'headers' => $this->service->getHeaders()
@@ -225,7 +226,7 @@ class Auth {
      */
     public function updateUser(string $bearerUserToken, string $email = null, string $password = null, array $data = [])
     {
-        $uri = $this->service->getUriBase('user');
+        $uri = $this->service->getUriBase($this->suffix . 'user');
         $this->service->setHeader('Authorization', 'Bearer ' . $bearerUserToken);
 
         $fields = [];

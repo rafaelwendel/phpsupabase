@@ -5,6 +5,7 @@ namespace PHPSupabase;
 use Exception;
 
 class Database {
+    private $suffix = 'rest/v1/';
     private $service;
     private $tableName;
     private $primaryKey;
@@ -79,7 +80,7 @@ class Database {
         $table = is_null($table)
                 ? $this->tableName
                 : $table;
-        $uri = $this->service->getUriBase($table . '?' . $queryString);
+        $uri = $this->service->getUriBase($this->suffix . $table . '?' . $queryString);
         $options = [
             'headers' => $this->service->getHeaders()
         ];
@@ -97,7 +98,7 @@ class Database {
     private function executeDml(string $method, array $data, string $queryString = null)
     {
         $endPoint = ($queryString == null) ? $this->tableName : $this->tableName . '?' . $queryString; 
-        $uri = $this->service->getUriBase($endPoint);
+        $uri = $this->service->getUriBase($this->suffix . $endPoint);
         
         $this->service->setHeader('Prefer', 'return=representation');
         $options = [
