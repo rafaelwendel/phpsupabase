@@ -1,6 +1,15 @@
 # Changes in PHPSupabase #
 
-## 0.0.5 - 2022-05-17
+## 0.0.6 - 2023-06-15
+
+### Added
+
+- Create `limit` method on QueryBuilder class
+    - Credit to @streeboga for contribution
+- Create `limit` option on `createCustomQuery` method (Database class)
+    - Credit to @streeboga for contribution
+
+## 0.0.5 - 2023-05-17
 
 ### Changed
 
