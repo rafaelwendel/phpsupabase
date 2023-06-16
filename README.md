@@ -339,6 +339,7 @@ The following methods for fetching data are available in the `Database` class:
     - `from`
     - `join`
     - `where`
+    - `limit`
     - `range`
 
 All the mentioned methods return the self instance of `Database` class. To access the fetched data, call the `getResult` method.
@@ -455,7 +456,7 @@ $query = [
     [
         'price' => 'lt.1000', //"lt" means "less than" (<)
     ],
-    'range' => '0-3' //4 first rows
+    'limit' => 4 //4 first rows
 ];
 ```
 
@@ -530,8 +531,9 @@ Available methods:
 - `from(string $from)`: the table
 - `join(string $table, string $tablekey, string $select = null)`: related table
 - `where(string $column, string $value)`: conditions
+- `limit(int $limit)`: limit rows
 - `order(string $order)`: the "order by" field
-- `range(string $range)`: results range
+- `range(string $range)`: results range (E.g. "0-3")
 
 All the mentioned methods return the self instance of `QueryBuilder` class. To run the mounted query, call the `execute` method. Then, to access the fetched data, call the `getResult` method.
 
