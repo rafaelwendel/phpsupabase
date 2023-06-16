@@ -118,6 +118,18 @@ class QueryBuilder {
     }
 
     /**
+     * Add the "limit" to the query
+     * @access public
+     * @param $limit int The interval of fetch registers
+     * @return QueryBuilder
+     */
+    public function limit(string $limit) : QueryBuilder
+    {
+        $this->query['limit'] = $limit;
+        return $this;
+    }
+
+    /**
      * Add the "order" to the query
      * @access public
      * @param $order String The order by column
@@ -163,6 +175,10 @@ class QueryBuilder {
 
         if(isset($this->query['where'])){
             $queryString .= '&' . implode('&', $this->query['where']);
+        }
+
+        if(isset($this->query['limit'])){
+            $queryString .= '&limit=' . $this->query['limit'];
         }
 
         if(isset($this->query['order'])){
