@@ -242,6 +242,10 @@ class Database {
             }
         }
 
+        if(isset($args['limit'])){
+            $queryBuilder->limit($args['limit']);
+        }
+
         if(isset($args['order'])){
             $queryBuilder->order($args['order']);
         }
