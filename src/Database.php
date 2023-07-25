@@ -100,7 +100,10 @@ class Database {
         $endPoint = ($queryString == null) ? $this->tableName : $this->tableName . '?' . $queryString; 
         $uri = $this->service->getUriBase($this->suffix . $endPoint);
         
-        $this->service->setHeader('Prefer', 'return=representation');
+        if(is_null($this->service->getHeader('Prefer'))) {
+            $this->service->setHeader('Prefer', 'return=representation');
+        }
+        
         $options = [
             'headers' => $this->service->getHeaders(),
             'body' => json_encode($data)
