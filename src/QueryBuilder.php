@@ -113,7 +113,7 @@ class QueryBuilder {
      */
     public function where(string $column, string $value) : QueryBuilder
     {
-        $this->query['where'][] = $column . '=' . $value;
+        $this->query['where'][] = $column . '=' . urlencode($value);
         return $this;
     }
 
