@@ -1,5 +1,18 @@
 # Changes in PHPSupabase #
 
+## 0.0.7 - 2023-07-25
+
+### Added
+
+- Add `getHeader` method on Service class
+
+### Changed
+
+- Change the `executeDml` method on Database class to verify if `Prefer` header is defined (Or define the default value).
+    - Suggested by @nkt-dk
+- Change the `where` method on QueryBuilder class (Use `urlencode` function on `$value` variable)
+    - Credit to @fred-derf for contribution
+
 ## 0.0.6 - 2023-06-15
 
 ### Added
