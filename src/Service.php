@@ -111,6 +111,19 @@ class Service {
     }
 
     /**
+     * Returns a specific header or null if it doesn't exist
+     * @access public
+     * @param $header String The header key to be set
+     * @return string|null
+     */
+    public function getHeader(string $header)
+    {
+        return (isset($this->headers[$header]))
+                ? $this->headers[$header]
+                : null;
+    }
+
+    /**
      * Returns the set headers
      * @access public
      * @return array
