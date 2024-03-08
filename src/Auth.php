@@ -248,4 +248,18 @@ class Auth {
         return $this->service->executeHttpRequest('PUT', $uri, $options);
     }
 
+    /**
+     * Delete the user, need service_role secret
+     * @param $id String The user id
+     * @return array|object|null
+     */
+    public function deleteUser($id)
+    {
+        $uri = $this->service->getUriBase($this->suffix . 'admin/users/' . $id);
+        $options = [
+            'headers' => $this->service->getHeaders()
+        ];
+        return $this->service->executeHttpRequest('DELETE', $uri, $options);
+    }
+
 }
