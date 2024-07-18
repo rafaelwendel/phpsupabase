@@ -33,7 +33,7 @@ class Auth {
      * @access public
      * @return string
      */
-    public function getError() : string
+    public function getError() : string|null
     {
         return $this->service->getError();
     }
