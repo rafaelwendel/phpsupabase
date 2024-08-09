@@ -1,5 +1,14 @@
 # Changes in PHPSupabase #
 
+## 0.0.8 - 2024-08-09
+
+### Fixed
+
+- Fix param tags on `Auth`, `Database`, `QueryBuilder` and `Service` classes
+    - Credit to @Bartel-C8 for contribution
+- Fix `getError` return type on `Auth`, `Database`, `QueryBuilder` and `Service` classes
+    - Credit to @kevineduardo for contribution
+
 ## 0.0.7 - 2023-07-25
 
 ### Added
