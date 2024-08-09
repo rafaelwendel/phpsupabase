@@ -57,9 +57,9 @@ class QueryBuilder {
     /**
      * Returns the error generated
      * @access public
-     * @return string
+     * @return string|null
      */
-    public function getError() : string
+    public function getError() : string|null
     {
         return $this->service->getError();
     }
