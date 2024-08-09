@@ -18,8 +18,8 @@ class Service {
     /**
      * Construct method (Set the API key, URI base and instance GuzzleHttp client)
      * @access public
-     * @param $apiKey String The Supabase project API Key
-     * @param $uriBase String API URI base (Ex: "https://abcdefgh.supabase.co/rest/v1/" OR "https://abcdefgh.supabase.co/auth/v1/") 
+     * @param string $apiKey The Supabase project API Key
+     * @param string $uriBase API URI base (Ex: "https://abcdefgh.supabase.co/rest/v1/" OR "https://abcdefgh.supabase.co/auth/v1/") 
      * @return void
      */
     public function __construct(string $apiKey, string $uriBase)
@@ -34,7 +34,7 @@ class Service {
     /**
      * Set bearerToken to be added into headers and to be used for future requests
      * @access public
-     * @param $bearerToken String The bearer user token (generated in sign in process)  
+     * @param string $bearerToken The bearer user token (generated in sign in process)  
      * @return Service
      */
     public function setBearerToken($bearerToken)
@@ -46,8 +46,8 @@ class Service {
     /**
      * Format URI base with slash at end
      * @access private
-     * @param $uriBase String API URI base (Ex: "https://abcdefgh.supabase.co/rest/v1/" OR "https://abcdefgh.supabase.co/auth/v1/") 
-     * @return void
+     * @param string $uriBase API URI base (Ex: "https://abcdefgh.supabase.co/rest/v1/" OR "https://abcdefgh.supabase.co/auth/v1/") 
+     * @return string
      */
     private function formatUriBase(string $uriBase) : string
     {
@@ -69,7 +69,7 @@ class Service {
     /**
      * Returns the URI base
      * @access public
-     * @param $endPoint (optional) String The end point to concatenate to URI base
+     * @param string $endPoint Optional. String The end point to concatenate to URI base
      * @return string
      */
     public function getUriBase(string $endPoint = '') : string
@@ -101,8 +101,8 @@ class Service {
     /**
      * Set a header to be use in the API request
      * @access public
-     * @param $header String The header key to be set
-     * @param $value String The value of header
+     * @param string $header The header key to be set
+     * @param string $value The value of header
      * @return void
      */
     public function setHeader(string $header, string $value) : void
@@ -113,7 +113,7 @@ class Service {
     /**
      * Returns a specific header or null if it doesn't exist
      * @access public
-     * @param $header String The header key to be set
+     * @param string $header The header key to be set
      * @return string|null
      */
     public function getHeader(string $header)
@@ -156,8 +156,8 @@ class Service {
     /**
      * Returns a new instance of Database class
      * @access public
-     * @param $tableName String The table to be used
-     * @param $primaryKey (optional) String The table primary key (usually "id")
+     * @param string $tableName The table to be used
+     * @param string $primaryKey Optional. String The table primary key (usually "id")
      * @return Database
      */
     public function initializeDatabase(string $tableName, string $primaryKey = 'id') : Database
@@ -178,7 +178,7 @@ class Service {
     /**
      * Format the exception thrown by GuzzleHttp, formatting the error message
      * @access public
-     * @param $e \GuzzleHttp\Exception\RequestException The exception thrown by GuzzleHttp
+     * @param \GuzzleHttp\Exception\RequestException $e  The exception thrown by GuzzleHttp
      * @return void
      */
     public function formatRequestException(\GuzzleHttp\Exception\RequestException $e) : void
@@ -199,9 +199,9 @@ class Service {
     /**
      * Execute a Http request in Supabase API
      * @access public
-     * @param $method String The request method (GET, POST, PUT, DELETE, PATCH, ...)
-     * @param $uri String The URI to be requested (including the endpoint)
-     * @param $options array Requisition options (header, body, ...) 
+     * @param string $method The request method (GET, POST, PUT, DELETE, PATCH, ...)
+     * @param string $uri The URI to be requested (including the endpoint)
+     * @param array $options Requisition options (header, body, ...) 
      * @return array|object|null
      */
     public function executeHttpRequest(string $method, string $uri, array $options)

@@ -14,7 +14,7 @@ class QueryBuilder {
     /**
      * Construct method (Set the Service instance)
      * @access public
-     * @param $service Service The Supabase Service instance
+     * @param Service $service The Supabase Service instance
      * @return void
      */
     public function __construct(Service $service)
@@ -67,7 +67,7 @@ class QueryBuilder {
     /**
      * Add the "select" to the query
      * @access public
-     * @param $select String The select (Ex: * OR column1, column2, ...)
+     * @param string $select The select (Ex: * OR column1, column2, ...)
      * @return QueryBuilder
      */
     public function select(string $select) : QueryBuilder
@@ -79,7 +79,7 @@ class QueryBuilder {
     /**
      * Add the "from" to the query
      * @access public
-     * @param $from String The table to be used in query
+     * @param string $from The table to be used in query
      * @return QueryBuilder
      */
     public function from(string $from) : QueryBuilder
@@ -91,9 +91,9 @@ class QueryBuilder {
     /**
      * Make a "join" between the "from" table and another table related
      * @access public
-     * @param $tableable String The related table
-     * @param $tablekey String The foreign key (usually "id")
-     * @param $select String (optional) The columns to be select in foreign table
+     * @param string $tableable The related table
+     * @param string $tablekey The foreign key (usually "id")
+     * @param string $select Optional. The columns to be select in foreign table
      * @return QueryBuilder
      */
     public function join(string $table, string $tablekey, string $select = null) : QueryBuilder
@@ -107,8 +107,8 @@ class QueryBuilder {
     /**
      * Add the condition "where" to the query
      * @access public
-     * @param $column String The column to be used in where clause
-     * @param $value String The value of condition
+     * @param string $column The column to be used in where clause
+     * @param string $value The value of condition
      * @return QueryBuilder
      */
     public function where(string $column, string $value) : QueryBuilder
@@ -120,10 +120,10 @@ class QueryBuilder {
     /**
      * Add the "limit" to the query
      * @access public
-     * @param $limit int The interval of fetch registers
+     * @param int $limit The interval of fetch registers
      * @return QueryBuilder
      */
-    public function limit(string $limit) : QueryBuilder
+    public function limit(int $limit) : QueryBuilder
     {
         $this->query['limit'] = $limit;
         return $this;
@@ -132,7 +132,7 @@ class QueryBuilder {
     /**
      * Add the "order" to the query
      * @access public
-     * @param $order String The order by column
+     * @param string $order The order by column
      * @return QueryBuilder
      */
     public function order(string $order) : QueryBuilder
@@ -144,7 +144,7 @@ class QueryBuilder {
     /**
      * Add the "range" to the query
      * @access public
-     * @param $range String The interval of fetch registers
+     * @param string $range The interval of fetch registers
      * @return QueryBuilder
      */
     public function range(string $range) : QueryBuilder
@@ -196,6 +196,7 @@ class QueryBuilder {
     /**
      * Execute the request to run the query
      * @access private
+     * @param string $queryString A query string to be use in URL
      * @return void
      */
     private function executeQuery(string $queryString) : void

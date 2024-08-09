@@ -14,9 +14,9 @@ class Database {
     /**
      * Construct method (Set the Service instance, the table to be used and the table primary key)
      * @access public
-     * @param $service Service The Supabase Service instance
-     * @param $tableName String The table
-     * @param $primaryKey String The table primary key
+     * @param Service $service The Supabase Service instance
+     * @param string $tableName The table
+     * @param string $primaryKey The table primary key
      * @return void
      */
     public function __construct(Service $service, string $tableName, string $primaryKey)
@@ -71,8 +71,8 @@ class Database {
     /**
      * Execute a query in database
      * @access private
-     * @param $queryString String The parameters to be used in the request
-     * @param $table String (optional) Use a different table that the set in construct method
+     * @param string $queryString The parameters to be used in the request
+     * @param string $table String Optional. Use a different table that the set in construct method
      * @return void
      */
     private function executeQuery(string $queryString, string $table = null) : void
@@ -90,9 +90,9 @@ class Database {
     /**
      * Execute a DML (Data Manipulation Language) query in database
      * @access private
-     * @param $method String The request method (GET, POST, PUT, DELETE, PATCH, ...)
-     * @param $data array The fields to be used in query/request
-     * @param $queryString String (optional) The parameters to be used in the requests
+     * @param string $method The request method (GET, POST, PUT, DELETE, PATCH, ...)
+     * @param array  $data The fields to be used in query/request
+     * @param string $queryString Optional. The parameters to be used in the requests
      * @return array|object|null
      */
     private function executeDml(string $method, array $data, string $queryString = null)
@@ -114,7 +114,7 @@ class Database {
     /**
      * Insert a new register into table
      * @access public
-     * @param $data array The values to be inserted
+     * @param array $data The values to be inserted
      * @return array|object|null
      */
     public function insert(array $data)
@@ -125,8 +125,8 @@ class Database {
     /**
      * Update a register into table
      * @access public
-     * @param $id String The "id" (PK) of the register, to be used in WHERE clause
-     * @param $data array The values to be updated
+     * @param string $id The "id" (PK) of the register, to be used in WHERE clause
+     * @param array $data The values to be updated
      * @return array|object|null
      */
     public function update(string $id, array $data)
@@ -137,7 +137,7 @@ class Database {
     /**
      * Delete a register into table
      * @access public
-     * @param $id String The "id" (PK) of the register, to be used in WHERE clause
+     * @param string $id The "id" (PK) of the register, to be used in WHERE clause
      * @return array|object|null
      */
     public function delete(string $id)
@@ -159,8 +159,8 @@ class Database {
     /**
      * Fetch registers of table by a especific column/value
      * @access public
-     * @param $column String The column name
-     * @param $value String The value
+     * @param string $column The column name
+     * @param string $value The value
      * @return Database
      */
     public function findBy(string $column, string $value) : Database
@@ -172,8 +172,8 @@ class Database {
     /**
      * Fetch registers of table by a especific column/value, using LIKE operator
      * @access public
-     * @param $column String The column name
-     * @param $value String The value
+     * @param string $column The column name
+     * @param string $value The value
      * @return Database
      */
     public function findByLike(string $column, string $value) : Database
@@ -185,8 +185,8 @@ class Database {
     /**
      * Make a "join" between the seted table and another table related
      * @access public
-     * @param $foreignTable String The related table
-     * @param $foreignKey String The foreign key (usually "id")
+     * @param string $foreignTable The related table
+     * @param string $foreignKey The foreign key (usually "id")
      * @return Database
      */
     public function join(string $foreignTable, string $foreignKey) : Database
@@ -198,7 +198,7 @@ class Database {
     /**
      * Create a custom query to fetch into database
      * @access public
-     * @param $args array The query structure (Available keys: "select", "from", "join", "where", "range")
+     * @param array $args The query structure (Available keys: "select", "from", "join", "where", "range")
      * @return Database
      */
     public function createCustomQuery(array $args) : Database

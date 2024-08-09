@@ -10,7 +10,7 @@ class Auth {
     /**
      * Construct method (Set the Service instance)
      * @access public
-     * @param $service Service The Supabase Service instance
+     * @param Service $service The Supabase Service instance
      * @return void
      */
     public function __construct(Service $service)
@@ -41,8 +41,8 @@ class Auth {
     /**
      * Default method to call POST requests to users management
      * @access private
-     * @param $endPoint String The endpoint of request
-     * @param $fields array The body fields to be use in request (Ex: email, password, ...)
+     * @param string $endPoint The endpoint of request
+     * @param array  $fields The body fields to be use in request (Ex: email, password, ...)
      * @return void
      */
     private function defaultPostCallUserManagement(string $endPoint, array $fields) : void
@@ -58,9 +58,9 @@ class Auth {
     /**
      * Create a new user (by email and password) in Supabase project 
      * @access public
-     * @param $email String The email address of new user
-     * @param $password String The password of new user
-     * @param $data array (optional) The user meta data
+     * @param string $email The email address of new user
+     * @param string $password The password of new user
+     * @param array  $data Optional. The user meta data
      * @return void
      */
     public function createUserWithEmailAndPassword(string $email, string $password, array $data = []) : void
@@ -79,8 +79,8 @@ class Auth {
     /**
      * Sign in (authenticate) in Supabase project (by email and password)
      * @access public
-     * @param $email String The user email
-     * @param $password String The user password
+     * @param string $email The user email
+     * @param string $password The user password
      * @return void
      */
     public function signInWithEmailAndPassword(string $email, string $password) : void
@@ -95,7 +95,7 @@ class Auth {
     /**
      * Sign in (authenticate) in Supabase project (by refresh token)
      * @access public
-     * @param $refreshToken String The refresh token
+     * @param string $refreshToken The refresh token
      * @return void
      */
     public function signInWithRefreshToken(string $refreshToken) : void
@@ -109,7 +109,7 @@ class Auth {
     /**
      * Sign in (authenticate) in Supabase project (by magic link sended to user email)
      * @access public
-     * @param $email String The user email
+     * @param string $email The user email
      * @return void
      */
     public function signInWithMagicLink(string $email) : void
@@ -123,9 +123,9 @@ class Auth {
     /**
      * Create a new user (by phone and password) in Supabase project 
      * @access public
-     * @param $phone String The phone number of new user
-     * @param $password String The password of new user
-     * @param $data array (optional) The user meta data
+     * @param string $phone The phone number of new user
+     * @param string $password The password of new user
+     * @param array  $data Optional. The user meta data
      * @return void
      */
     public function createUserWithPhoneAndPassword(string $phone, string $password, array $data = []) : void
@@ -144,7 +144,7 @@ class Auth {
     /**
      * Sign in (authenticate) in Supabase project (by SMS OTP)
      * @access public
-     * @param $phone String The user phone number
+     * @param string $phone The user phone number
      * @return void
      */
     public function signInWithSMSOTP(string $phone) : void
@@ -158,7 +158,7 @@ class Auth {
     /**
      * Recover the user password (by a link sended to user email)
      * @access public
-     * @param $email String The user email
+     * @param string $email The user email
      * @return void
      */
     public function recoverPassword(string $email) : void
@@ -172,7 +172,7 @@ class Auth {
     /**
      * Logout
      * @access public
-     * @param $bearerUserToken String The bearer user token (generated in sign in process)
+     * @param string $bearerUserToken The bearer user token (generated in sign in process)
      * @return array|object|null
      */
     public function logout(string $bearerUserToken)
@@ -188,7 +188,7 @@ class Auth {
     /**
      * Returns the user data
      * @access public
-     * @param $bearerUserToken String The bearer user token (generated in sign in process)
+     * @param string $bearerUserToken The bearer user token (generated in sign in process)
      * @return array|object|null
      */
     public function getUser(string $bearerUserToken)
@@ -204,7 +204,7 @@ class Auth {
     /**
      * Verify if the user is authenticated
      * @access public
-     * @param $bearerUserToken String The bearer user token (generated in sign in process)
+     * @param string $bearerUserToken The bearer user token (generated in sign in process)
      * @return bool
      */
     public function isAuthenticated(string $bearerUserToken) : bool
@@ -218,10 +218,10 @@ class Auth {
     /**
      * Update the user data
      * @access public
-     * @param $bearerUserToken String The bearer user token (generated in sign in process)
-     * @param $email String (optional) The user email
-     * @param $password String (optional) The user password
-     * @param $data array (optional) The user meta data
+     * @param string $bearerUserToken The bearer user token (generated in sign in process)
+     * @param string $email Optional. The user email
+     * @param string $password Optional. The user password
+     * @param array  $data Optional. The user meta data
      * @return array|object|null
      */
     public function updateUser(string $bearerUserToken, string $email = null, string $password = null, array $data = [])
