@@ -29,6 +29,7 @@ class Service {
 
         $this->httpClient = new \GuzzleHttp\Client();
         $this->headers['apikey'] = $this->apiKey;
+        $this->headers['Authorization'] = 'Bearer ' . $this->apiKey;
     }
 
     /**
