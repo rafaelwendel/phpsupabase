@@ -75,7 +75,7 @@ class Service {
     public function getUriBase(string $endPoint = '') : string
     {
         $parseUrl = parse_url($this->uriBase);
-        return $parseUrl['scheme'] . '://' . $parseUrl['host'] . '/' . $endPoint;
+        return $parseUrl['scheme'] . '://' . $parseUrl['host'] . ':' . $parseUrl['port'] . '/' . $endPoint;
     }
 
     /**
