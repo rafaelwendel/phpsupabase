@@ -75,7 +75,7 @@ class Database {
      * @param string $table String Optional. Use a different table that the set in construct method
      * @return void
      */
-    private function executeQuery(string $queryString, string $table = null) : void
+    private function executeQuery(string $queryString, ?string $table = null) : void
     {
         $table = is_null($table)
                 ? $this->tableName
@@ -95,7 +95,7 @@ class Database {
      * @param string $queryString Optional. The parameters to be used in the requests
      * @return array|object|null
      */
-    private function executeDml(string $method, array $data, string $queryString = null)
+    private function executeDml(string $method, array $data, ?string $queryString = null)
     {
         $endPoint = ($queryString == null) ? $this->tableName : $this->tableName . '?' . $queryString; 
         $uri = $this->service->getUriBase($this->suffix . $endPoint);
