@@ -224,7 +224,7 @@ class Auth {
      * @param array  $data Optional. The user meta data
      * @return array|object|null
      */
-    public function updateUser(string $bearerUserToken, string $email = null, string $password = null, array $data = [])
+    public function updateUser(string $bearerUserToken, ?string $email = null, ?string $password = null, array $data = [])
     {
         $uri = $this->service->getUriBase($this->suffix . 'user');
         $this->service->setHeader('Authorization', 'Bearer ' . $bearerUserToken);
