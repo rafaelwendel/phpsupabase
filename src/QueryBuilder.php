@@ -96,7 +96,7 @@ class QueryBuilder {
      * @param string $select Optional. The columns to be select in foreign table
      * @return QueryBuilder
      */
-    public function join(string $table, string $tablekey, string $select = null) : QueryBuilder
+    public function join(string $table, string $tablekey, ?string $select = null) : QueryBuilder
     {
         $this->query['join'][] = $table . 
                                 '(' . $tablekey . ',' .
