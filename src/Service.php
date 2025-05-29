@@ -4,7 +4,8 @@ namespace PHPSupabase;
 
 use GuzzleHttp\Psr7\Response;
 
-class Service {
+class Service
+{
     private $apiKey;
     private $uriBase;
     private $httpClient;
@@ -49,11 +50,11 @@ class Service {
      * @param string $uriBase API URI base (Ex: "https://abcdefgh.supabase.co/rest/v1/" OR "https://abcdefgh.supabase.co/auth/v1/") 
      * @return string
      */
-    private function formatUriBase(string $uriBase) : string
+    private function formatUriBase(string $uriBase): string
     {
-        return (substr($uriBase , -1) == '/')
+        return (substr($uriBase, -1) == '/')
             ? $uriBase
-            : $uriBase . '/'; 
+            : $uriBase . '/';
     }
 
     /**
@@ -61,7 +62,7 @@ class Service {
      * @access public
      * @return string
      */
-    public function getApiKey() : string
+    public function getApiKey(): string
     {
         return $this->apiKey;
     }
@@ -72,10 +73,18 @@ class Service {
      * @param string $endPoint Optional. String The end point to concatenate to URI base
      * @return string
      */
-    public function getUriBase(string $endPoint = '') : string
+    public function getUriBase(string $endPoint = ''): string
     {
         $parseUrl = parse_url($this->uriBase);
-        return $parseUrl['scheme'] . '://' . $parseUrl['host'] . '/' . $endPoint;
+        $parseUrl['port'] = isset($parseUrl['port']) ? $parseUrl['port'] : null;
+        if ($parseUrl['port'] === null) {
+            if ($parseUrl['scheme'] === 'http') {
+                $parseUrl['port'] = 80;
+            } elseif ($parseUrl['scheme'] === 'https') {
+                $parseUrl['port'] = 443;
+            }
+        }
+        return $parseUrl['scheme'] . '://' . $parseUrl['host'] . ':' . $parseUrl['port'] . '/' . $endPoint;
     }
 
     /**
@@ -83,7 +92,7 @@ class Service {
      * @access public
      * @return \GuzzleHttp\Client
      */
-    public function getHttpClient() : \GuzzleHttp\Client
+    public function getHttpClient(): \GuzzleHttp\Client
     {
         return $this->httpClient;
     }
@@ -93,7 +102,7 @@ class Service {
      * @access public
      * @return Response
      */
-    public function getResponse() : Response
+    public function getResponse(): Response
     {
         return $this->response;
     }
@@ -105,7 +114,7 @@ class Service {
      * @param string $value The value of header
      * @return void
      */
-    public function setHeader(string $header, string $value) : void
+    public function setHeader(string $header, string $value): void
     {
         $this->headers[$header] = $value;
     }
@@ -119,8 +128,8 @@ class Service {
     public function getHeader(string $header)
     {
         return (isset($this->headers[$header]))
-                ? $this->headers[$header]
-                : null;
+            ? $this->headers[$header]
+            : null;
     }
 
     /**
@@ -128,7 +137,7 @@ class Service {
      * @access public
      * @return array
      */
-    public function getHeaders() : array
+    public function getHeaders(): array
     {
         return $this->headers;
     }
@@ -138,7 +147,7 @@ class Service {
      * @access public
      * @return string|null
      */
-    public function getError() : string|null
+    public function getError(): string|null
     {
         return $this->error;
     }
@@ -148,7 +157,7 @@ class Service {
      * @access public
      * @return Auth
      */
-    public function createAuth() : Auth
+    public function createAuth(): Auth
     {
         return new Auth($this);
     }
@@ -160,7 +169,7 @@ class Service {
      * @param string $primaryKey Optional. String The table primary key (usually "id")
      * @return Database
      */
-    public function initializeDatabase(string $tableName, string $primaryKey = 'id') : Database
+    public function initializeDatabase(string $tableName, string $primaryKey = 'id'): Database
     {
         return new Database($this, $tableName, $primaryKey);
     }
@@ -170,7 +179,7 @@ class Service {
      * @access public
      * @return QueryBuilder
      */
-    public function initializeQueryBuilder() : QueryBuilder
+    public function initializeQueryBuilder(): QueryBuilder
     {
         return new QueryBuilder($this);
     }
@@ -181,14 +190,14 @@ class Service {
      * @param \GuzzleHttp\Exception\RequestException $e  The exception thrown by GuzzleHttp
      * @return void
      */
-    public function formatRequestException(\GuzzleHttp\Exception\RequestException $e) : void
+    public function formatRequestException(\GuzzleHttp\Exception\RequestException $e): void
     {
-        if($e->hasResponse()){
+        if ($e->hasResponse()) {
             $res = json_decode($e->getResponse()->getBody());
             $searchItems = ['msg', 'message', 'error_description'];
 
-            foreach($searchItems as $item){
-                if(isset($res->$item)){
+            foreach ($searchItems as $item) {
+                if (isset($res->$item)) {
                     $this->error = $res->$item;
                     break;
                 }
@@ -206,17 +215,17 @@ class Service {
      */
     public function executeHttpRequest(string $method, string $uri, array $options)
     {
-        try{
+        try {
             $this->response = $this->httpClient->request(
                 $method,
                 $uri,
                 $options
             );
             return json_decode($this->response->getBody());
-        } catch(\GuzzleHttp\Exception\RequestException $e){
+        } catch (\GuzzleHttp\Exception\RequestException $e) {
             $this->formatRequestException($e);
             throw $e;
-        } catch(\GuzzleHttp\Exception\ConnectException $e){
+        } catch (\GuzzleHttp\Exception\ConnectException $e) {
             $this->error = $e->getMessage();
             throw $e;
         }
