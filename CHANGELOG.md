@@ -3,6 +3,7 @@
 ## 0.0.9 - 2025-05-28
 
 - Add port to URI Base on `Service` to allow connect to local Supabase
+    - Credit to @jpoto-dev for contribution
 
 ## 0.0.8 - 2024-08-09
 
