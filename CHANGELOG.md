@@ -4,6 +4,8 @@
 
 - Add port to URI Base on `Service` to allow connect to local Supabase
     - Credit to @jpoto-dev for contribution
+- Fix deprecation warnings in PHP 8.4
+    - Credit to @carlobeltrame for contribution
 
 ## 0.0.8 - 2024-08-09
 
