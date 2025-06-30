@@ -1,5 +1,10 @@
 # Changes in PHPSupabase #
 
+## 0.0.10 - 2025-06-29
+
+- Fix Prevent error if the uriBase (Service class) is not a valid URL (instead to have : "Warning: Undefined array key "scheme")
+    - Credit to @Showbaha for contribution
+
 ## 0.0.9 - 2025-05-28
 
 - Add port to URI Base on `Service` to allow connect to local Supabase
