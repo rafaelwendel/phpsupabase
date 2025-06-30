@@ -78,12 +78,18 @@ class Service
         $parseUrl = parse_url($this->uriBase);
         $parseUrl['port'] = isset($parseUrl['port']) ? $parseUrl['port'] : null;
         if ($parseUrl['port'] === null) {
-            if ($parseUrl['scheme'] === 'http') {
+            if (!isset($parseUrl['scheme']) || $parseUrl['scheme'] === 'http') {
                 $parseUrl['port'] = 80;
             } elseif ($parseUrl['scheme'] === 'https') {
                 $parseUrl['port'] = 443;
             }
         }
+
+        // Prevent error if the uriBase is not a valid url
+        if(!isset($parseUrl['scheme']) || !isset($parseUrl['host'])){
+            return $this->uriBase . $endPoint;
+        }
+
         return $parseUrl['scheme'] . '://' . $parseUrl['host'] . ':' . $parseUrl['port'] . '/' . $endPoint;
     }
 
