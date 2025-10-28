@@ -1,9 +1,14 @@
 # Changes in PHPSupabase #
 
+## 0.0.11 - 2025-10-28
+
+- Add error handling for PostgREST responses in Database and QueryBuilder
+    - Credit to @Snowbaha for contribution
+
 ## 0.0.10 - 2025-06-29
 
 - Fix Prevent error if the uriBase (Service class) is not a valid URL (instead to have : "Warning: Undefined array key "scheme")
-    - Credit to @Showbaha for contribution
+    - Credit to @Snowbaha for contribution
 
 ## 0.0.9 - 2025-05-28
 
