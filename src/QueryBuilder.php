@@ -39,6 +39,9 @@ class QueryBuilder {
      */
     public function getResult() : array
     {
+        if ($this->service->isPostgrestError($this->result)) {
+            return throw new Exception($this->result->message);
+        }
         return $this->result;
     }
 

@@ -159,6 +159,27 @@ class Service
     }
 
     /**
+     * Check if the last response contains an error
+     * @access public
+     * @return bool
+     */
+    public function hasError(): bool
+    {
+        return !is_null($this->error);
+    }
+
+    /**
+     * Check if the response is a PostgREST error
+     * @access public
+     * @param mixed $response The response to check
+     * @return bool
+     */
+    public function isPostgrestError($response): bool
+    {
+        return is_object($response) && isset($response->code) && isset($response->message);
+    }
+
+    /**
      * Returns a new instance of Auth class
      * @access public
      * @return Auth
