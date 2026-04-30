@@ -3,3 +3,5 @@ index.php
 tabletestes.php
 querybuildertests.php
 composer.lock
+.phpunit.cache
+.phpunit.result.cache

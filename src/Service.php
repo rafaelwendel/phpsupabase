@@ -190,6 +190,20 @@ class Service
     }
 
     /**
+     * Returns a new instance of AuthAdmin class
+     *
+     * The Service instance must have been built with the project service_role key,
+     * since the /auth/v1/admin/* endpoints require elevated privileges.
+     *
+     * @access public
+     * @return AuthAdmin
+     */
+    public function createAuthAdmin(): AuthAdmin
+    {
+        return new AuthAdmin($this);
+    }
+
+    /**
      * Returns a new instance of Database class
      * @access public
      * @param string $tableName The table to be used
