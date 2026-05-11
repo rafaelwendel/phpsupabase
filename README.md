@@ -13,6 +13,10 @@ PHPSupabase is a library written in php language, which allows you to use the re
         - [Sign in with email and password](#sign-in-with-email-and-password)
         - [Get the data of the logged in user](#get-the-data-of-the-logged-in-user)
         - [Update user data](#update-user-data)
+    - [AuthAdmin class (admin API)](#authadmin-class-admin-api)
+        - [Create a user (bypassing disable_signup)](#create-a-user-bypassing-disable_signup)
+        - [List, get, update and delete users](#list-get-update-and-delete-users)
+        - [Generate links (recovery, magiclink, invite, ...)](#generate-links-recovery-magiclink-invite-)
     - [Database class](#database-class)
         - [Insert data](#insert-data)
         - [Update data](#update-data)
@@ -182,6 +186,70 @@ catch(Exception $e){
 }
 ```
 Note that in the array returned now, the keys `first_name` and `last_name` were added to `user_metadata`.
+
+### AuthAdmin class (admin API)
+
+The `AuthAdmin` class wraps the Supabase admin endpoints (`/auth/v1/admin/*`). These endpoints **require the project `service_role` key** (not the anon key) and bypass restrictions such as `disable_signup`. They are intended to be called from a trusted backend, never from a public client.
+
+The `service_role` key is sent both as the `apikey` header (handled by `Service`) and as `Authorization: Bearer <service_role>` (set by `AuthAdmin` at construction time).
+
+```php
+$service = new PHPSupabase\Service(
+    "YOUR_SERVICE_ROLE_KEY",
+    "https://aaabbbccc.supabase.co"
+);
+
+$authAdmin = $service->createAuthAdmin();
+```
+
+#### Create a user (bypassing disable_signup)
+
+```php
+try {
+    $authAdmin->createUser(
+        'newuser@email.com',
+        'strong-password',
+        true,                         // email_confirm: marks email as already verified
+        ['first_name' => 'Michael']   // user_metadata
+    );
+    print_r($authAdmin->data());
+} catch (Exception $e) {
+    echo $authAdmin->getError();
+}
+```
+
+#### List, get, update and delete users
+
+```php
+// List users (paginated)
+$authAdmin->listUsers(1, 50);
+$users = $authAdmin->data()->users;
+
+// Get a single user
+$authAdmin->getUser('user-uuid');
+
+// Update a user — any subset of attributes can be passed
+$authAdmin->updateUser('user-uuid', [
+    'email'         => 'new@email.com',
+    'password'      => 'new-password',
+    'user_metadata' => ['role' => 'editor'],
+    'ban_duration'  => '24h',  // ban (use 'none' to unban)
+]);
+
+// Delete a user
+$authAdmin->deleteUser('user-uuid');
+```
+
+#### Generate links (recovery, magiclink, invite, ...)
+
+```php
+$authAdmin->generateLink('recovery', 'user@email.com', [
+    'redirect_to' => 'https://your-app.com/reset-password',
+]);
+$actionLink = $authAdmin->data()->action_link;
+```
+
+Supported `type` values: `signup`, `magiclink`, `recovery`, `invite`, `email_change_current`, `email_change_new`.
 
 ### Database class
 
