@@ -1,6 +1,6 @@
 # Changes in PHPSupabase #
 
-## Unreleased
+## 0.0.12
 
 - Add `AuthAdmin` class to wrap the Supabase admin auth API (`/auth/v1/admin/*`). Covers `createUser` (bypasses `disable_signup`), `listUsers`, `getUser`, `updateUser` (incl. ban/unban), `deleteUser` and `generateLink`. Requires the project `service_role` key.
 - Add PHPUnit test infrastructure (`phpunit/phpunit` ^10) and unit tests for `AuthAdmin` using Guzzle's `MockHandler`.
